@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+PODS_JSQSYSTEMSOUNDPLAYER_OTHER_LDFLAGS = -framework "AudioToolbox" -framework "Foundation" -framework "UIKit"
+=======
+PODS_JSQSYSTEMSOUNDPLAYER_OTHER_LDFLAGS = -framework "AudioToolbox" -framework "Foundation" -framework "UIKit"
+>>>>>>> 0ecc1741dfadc0e02a2ba9e738c55569531806c1

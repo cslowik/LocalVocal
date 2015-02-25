@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="conversationCell" rowHeight="80" id="KGk-i7-Jjw" customClass="ConversationTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="640" height="81"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="largeAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="S9h-1s-PDK">
+                        <rect key="frame" x="14" y="11" width="62" height="62"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="S9h-1s-PDK" secondAttribute="height" multiplier="1:1" id="0jd-0p-ipe"/>
+                        </constraints>
+                    </imageView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh4-1q-lim">
+                        <rect key="frame" x="89" y="33" width="520" height="44"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <string key="text">This sounded nonsense to Alice, so she said nothing, but set off at once toward... This sounded nonsense to Alice, so she said nothing, but set off at once toward...</string>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evx-iy-r15">
+                        <rect key="frame" x="93" y="13" width="520" height="30"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="evx-iy-r15" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-24" id="5gi-MH-Z6f"/>
+                    <constraint firstItem="Hh4-1q-lim" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-28" id="CZq-KR-1ss"/>
+                    <constraint firstItem="Hh4-1q-lim" firstAttribute="leading" secondItem="S9h-1s-PDK" secondAttribute="trailing" constant="13" id="MVG-Sy-iGi"/>
+                    <constraint firstItem="S9h-1s-PDK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="6" id="NFL-kx-bXd"/>
+                    <constraint firstItem="S9h-1s-PDK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="VZD-vk-nGZ"/>
+                    <constraint firstItem="evx-iy-r15" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="bvd-06-SCD"/>
+                    <constraint firstItem="evx-iy-r15" firstAttribute="leading" secondItem="S9h-1s-PDK" secondAttribute="trailing" constant="17" id="c75-xd-oVe"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="S9h-1s-PDK" secondAttribute="bottom" id="cjL-WR-IeL"/>
+                    <constraint firstItem="Hh4-1q-lim" firstAttribute="top" secondItem="evx-iy-r15" secondAttribute="bottom" constant="-10" id="t9w-Bu-SyG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImage" destination="S9h-1s-PDK" id="tw1-Fx-4Jw"/>
+                <outlet property="previewLabel" destination="Hh4-1q-lim" id="fr0-lM-1ds"/>
+                <outlet property="usernameLabel" destination="evx-iy-r15" id="PHx-gb-IGB"/>
+            </connections>
+            <point key="canvasLocation" x="544" y="487.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="largeAvatar" width="125" height="125"/>
+    </resources>
+</document>

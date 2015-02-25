@@ -1,0 +1,19 @@
+PODS:
+  - JSQMessagesViewController (6.1.3):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
+  - SWTableViewCell (0.3.7)
+  - UICKeyChainStore (2.0.2)
+
+DEPENDENCIES:
+  - JSQMessagesViewController
+  - SWTableViewCell (~> 0.3.7)
+  - UICKeyChainStore
+
+SPEC CHECKSUMS:
+  JSQMessagesViewController: e93a288a9662d4519c95a28a8c0eec10beae1bfc
+  JSQSystemSoundPlayer: 55528c699a283aae2220d3ae7b8b527d2ecef4b4
+  SWTableViewCell: 25de71898e3fcd11cf75707ef90245acf990ec03
+  UICKeyChainStore: 14bf8cb308432c2ca7c1b8b600398d4d6af8cb8d
+
+COCOAPODS: 0.35.0
