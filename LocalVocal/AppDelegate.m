@@ -68,13 +68,8 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-<<<<<<< HEAD
-    //[[DataSource sharedInstance].browser stopBrowsingForPeers];
-    //[[DataSource sharedInstance].advertiser stopAdvertisingPeer];
-=======
+
     [[DataSource sharedInstance].browser stopBrowsingForPeers];
-    [[DataSource sharedInstance].advertiser stopAdvertisingPeer];
->>>>>>> 0ecc1741dfadc0e02a2ba9e738c55569531806c1
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -97,12 +92,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // tell datasource to restart sessions, browsers, advertisers, etc
-    //[[DataSource sharedInstance].browser startBrowsingForPeers];
-<<<<<<< HEAD
     [[DataSource sharedInstance] startServices];
-=======
     [[DataSource sharedInstance].advertiser startAdvertisingPeer];
->>>>>>> 0ecc1741dfadc0e02a2ba9e738c55569531806c1
     
     self.backgroundTask = UIBackgroundTaskInvalid;  //invalidate background task
 }

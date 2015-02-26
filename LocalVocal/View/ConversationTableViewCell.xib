@@ -21,21 +21,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="largeAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="S9h-1s-PDK">
-                        <rect key="frame" x="14" y="11" width="62" height="62"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="largeAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="S9h-1s-PDK">
+                        <rect key="frame" x="14" y="11" width="61" height="61"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="S9h-1s-PDK" secondAttribute="height" multiplier="1:1" id="0jd-0p-ipe"/>
                         </constraints>
                     </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh4-1q-lim">
-                        <rect key="frame" x="89" y="33" width="520" height="44"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh4-1q-lim">
+                        <rect key="frame" x="88" y="27" width="516" height="49"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <string key="text">This sounded nonsense to Alice, so she said nothing, but set off at once toward... This sounded nonsense to Alice, so she said nothing, but set off at once toward...</string>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evx-iy-r15">
-                        <rect key="frame" x="93" y="13" width="520" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evx-iy-r15">
+                        <rect key="frame" x="92" y="13" width="516" height="24"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                         <nil key="highlightedColor"/>
                     </label>

@@ -3,8 +3,4 @@ HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" -isystem "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" -isystem "${PODS_ROOT}/Headers/Public/SWTableViewCell" -isystem "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
 OTHER_LDFLAGS = -ObjC -l"Pods-JSQMessagesViewController" -l"Pods-JSQSystemSoundPlayer" -l"Pods-SWTableViewCell" -l"Pods-UICKeyChainStore" -framework "AudioToolbox" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "UIKit"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
-<<<<<<< HEAD
 PODS_ROOT = ${SRCROOT}/Pods
-=======
-PODS_ROOT = ${SRCROOT}/Pods
->>>>>>> 0ecc1741dfadc0e02a2ba9e738c55569531806c1

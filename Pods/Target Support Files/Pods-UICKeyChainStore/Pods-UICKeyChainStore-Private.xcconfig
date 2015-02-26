@@ -2,8 +2,4 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/UICKeyChainStore" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" "${PODS_ROOT}/Headers/Public/SWTableViewCell" "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
 OTHER_LDFLAGS = ${PODS_UICKEYCHAINSTORE_OTHER_LDFLAGS} -ObjC
-<<<<<<< HEAD
 PODS_ROOT = ${SRCROOT}
-=======
-PODS_ROOT = ${SRCROOT}
->>>>>>> 0ecc1741dfadc0e02a2ba9e738c55569531806c1

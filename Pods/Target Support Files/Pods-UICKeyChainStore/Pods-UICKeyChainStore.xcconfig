@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 PODS_UICKEYCHAINSTORE_OTHER_LDFLAGS = -framework "Security"
-=======
-PODS_UICKEYCHAINSTORE_OTHER_LDFLAGS = -framework "Security"
->>>>>>> 0ecc1741dfadc0e02a2ba9e738c55569531806c1
