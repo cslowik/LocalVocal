@@ -85,27 +85,40 @@ static NSString * const reuseIdentifier = @"conversationCell";
 - (ConversationTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ConversationTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    NSMutableDictionary *conversationPreview = [DataSource sharedInstance].conversationPreviews[indexPath.row];
-    /*
-     @{ @"peer",
-     @"username",
-     @"avatar",
-     @"message",
-     @"unread"};
-     */
-    
-    cell.avatarImage.image = conversationPreview[@"avatar"];
-    cell.usernameLabel.text = conversationPreview[@"username"];
-    cell.previewLabel.text = conversationPreview[@"message"];
-    
-    if ([conversationPreview[@"unread"]  isEqual: @YES]) {
-        cell.usernameLabel.textColor = [UIColor colorWithRed:0.173 green:0.322 blue:0.886 alpha:1];
+    if (indexPath.section == 0) {
+        // if it's not blocked, display the preview as normal
+        
+        /* conversationPreview dictionary:
+         @{ @"peer",
+         @"username",
+         @"avatar",
+         @"message",
+         @"unread"};
+         */
+        NSMutableDictionary *conversationPreview = [DataSource sharedInstance].conversationPreviews[indexPath.row];
+        
+        cell.avatarImage.image = conversationPreview[@"avatar"];
+        cell.usernameLabel.text = conversationPreview[@"username"];
+        cell.previewLabel.text = conversationPreview[@"message"];
+        cell.redactedTextImage.hidden = YES;
+        cell.previewLabel.hidden = NO;
+        
+        if ([conversationPreview[@"unread"]  isEqual: @YES]) {
+            cell.usernameLabel.textColor = [UIColor colorWithRed:0.173 green:0.322 blue:0.886 alpha:1];
+        } else {
+            cell.usernameLabel.textColor = [UIColor colorWithRed:0.200 green:0.200 blue:0.200 alpha:1];
+        }
+        
     } else {
-        cell.usernameLabel.textColor = [UIColor colorWithRed:0.200 green:0.200 blue:0.200 alpha:1];
+        // if it's blocked, display generic avatar and text, and rename to "Blocked user xx"
+        cell.usernameLabel.text = [NSString stringWithFormat:@"Blocked User %ld", (long)indexPath.row];
+        //cell.avatarImage.image = [UIImage imageNamed:@"avatar"];
+        cell.redactedTextImage.hidden = NO;
+        cell.previewLabel.hidden = YES;
     }
     
-    cell.leftUtilityButtons = [self leftButtons];
-    cell.rightUtilityButtons = [self rightButtons];
+    [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:120];
+    [cell setLeftUtilityButtons:[self leftButtons] WithButtonWidth:120];
     cell.delegate = self;
     
     return cell;
@@ -138,27 +151,6 @@ static NSString * const reuseIdentifier = @"conversationCell";
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
 #pragma mark - SWTableViewCell Delegate
 
 // delete button
@@ -187,20 +179,26 @@ static NSString * const reuseIdentifier = @"conversationCell";
         case 0:
         {
             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            MCPeerID *peerID = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row][@"peer"];
+            NSMutableDictionary *conversationToMove = [@{} mutableCopy];
             
             if (cellIndexPath.section == 0) {
                 // if it's not blocked, block it.
+                MCPeerID *peerID = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row][@"peer"];
                 [[DataSource sharedInstance] blockUser:peerID];
-                NSMutableDictionary *conversationToBlock = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row];
+                conversationToMove = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row];
                 [[DataSource sharedInstance].conversationPreviews removeObjectAtIndex:cellIndexPath.row];
-                [[DataSource sharedInstance].blockedConversations insertObject:conversationToBlock atIndex:0];
+                if ([DataSource sharedInstance].blockedConversations == nil) {
+                    [DataSource sharedInstance].blockedConversations = [@[conversationToMove] mutableCopy];
+                } else {
+                    [[DataSource sharedInstance].blockedConversations insertObject:conversationToMove atIndex:0];
+                }
             } else {
                 // if it's blocked, unblock it.
+                MCPeerID *peerID = [DataSource sharedInstance].blockedConversations[cellIndexPath.row][@"peer"];
                 [[DataSource sharedInstance] unblockUser:peerID];
-                NSMutableDictionary *conversationToUnblock = [DataSource sharedInstance].blockedConversations[cellIndexPath.row];
+                conversationToMove = [DataSource sharedInstance].blockedConversations[cellIndexPath.row];
                 [[DataSource sharedInstance].blockedConversations removeObjectAtIndex:cellIndexPath.row];
-                [[DataSource sharedInstance].conversationPreviews insertObject:conversationToUnblock atIndex:0];
+                [[DataSource sharedInstance].conversationPreviews addObject:conversationToMove];
             }
             
             [self reloadUserTable];

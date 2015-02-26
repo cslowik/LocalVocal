@@ -41,6 +41,7 @@
         self.nearbyPeers = [[NSMutableArray alloc] initWithCapacity:1];
         // check for saved user info and block list
         [self loadUser];
+        //LOL CANT DO THIS self.blockList = [[NSUserDefaults standardUserDefaults] objectForKey:@"blockedPeers"];
         
         // read conversations and previews from saved data
         self.conversationPreviews = [NSMutableArray new];
@@ -89,7 +90,12 @@
 
 - (void) blockUser:(MCPeerID *)user {
     // add peer id to block list
-    [self.blockList addObject:user];
+    if (self.blockList == nil) {
+        self.blockList = [@[user] mutableCopy];
+    } else {
+        [self.blockList insertObject:user atIndex:0];
+    }
+    //LOL CANT DO THIS [[NSUserDefaults standardUserDefaults] setObject:self.blockList forKey:@"blockedPeers"];
 }
 
 - (void) unblockUser:(MCPeerID *)user {
