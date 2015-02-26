@@ -92,6 +92,15 @@
     [self.blockList addObject:user];
 }
 
+- (void) unblockUser:(MCPeerID *)user {
+    [self.blockList enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        MCPeerID *blockUser = (MCPeerID *)obj;
+        if (blockUser.displayName == user.displayName) {
+            [self.blockList removeObject:obj];
+        }
+    }];
+}
+
 #pragma mark - MC setup
 - (void) generatePeer {
     // check keychain for unique identifier, if not there create one

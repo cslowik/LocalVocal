@@ -23,9 +23,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_000" translatesAutoresizingMaskIntoConstraints="NO" id="sOG-P6-b4j">
-                    <rect key="frame" x="178" y="178" width="124" height="124"/>
+                    <rect key="frame" x="209" y="209" width="62" height="62"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="sOG-P6-b4j" secondAttribute="height" multiplier="1:1" id="G3a-8i-cdn"/>
+                        <constraint firstAttribute="height" constant="62" id="Os9-M8-QbA"/>
+                        <constraint firstAttribute="width" constant="62" id="p6z-WG-rTW"/>
                     </constraints>
                 </imageView>
             </subviews>

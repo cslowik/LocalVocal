@@ -65,12 +65,20 @@ static NSString * const reuseIdentifier = @"conversationCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // two sections - one for normal, one for blocked
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [DataSource sharedInstance].conversationPreviews.count;
+    NSInteger count;
+    
+    if (section == 0) {
+        count = [DataSource sharedInstance].conversationPreviews.count;
+    } else {
+        count = [DataSource sharedInstance].blockedConversations.count;
+    }
+    
+    return count;
 }
 
 
@@ -153,6 +161,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
 
 #pragma mark - SWTableViewCell Delegate
 
+// delete button
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     switch (index) {
         case 0:
@@ -172,14 +181,30 @@ static NSString * const reuseIdentifier = @"conversationCell";
     }
 }
 
+// block button
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
     switch (index) {
         case 0:
         {
             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
             MCPeerID *peerID = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row][@"peer"];
-            [[DataSource sharedInstance] blockUser:peerID];
-            NSLog(@"Blocked User");
+            
+            if (cellIndexPath.section == 0) {
+                // if it's not blocked, block it.
+                [[DataSource sharedInstance] blockUser:peerID];
+                NSMutableDictionary *conversationToBlock = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row];
+                [[DataSource sharedInstance].conversationPreviews removeObjectAtIndex:cellIndexPath.row];
+                [[DataSource sharedInstance].blockedConversations insertObject:conversationToBlock atIndex:0];
+            } else {
+                // if it's blocked, unblock it.
+                [[DataSource sharedInstance] unblockUser:peerID];
+                NSMutableDictionary *conversationToUnblock = [DataSource sharedInstance].blockedConversations[cellIndexPath.row];
+                [[DataSource sharedInstance].blockedConversations removeObjectAtIndex:cellIndexPath.row];
+                [[DataSource sharedInstance].conversationPreviews insertObject:conversationToUnblock atIndex:0];
+            }
+            
+            [self reloadUserTable];
+            
             break;
         }
         default:

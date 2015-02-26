@@ -28,6 +28,7 @@
 
 @property (strong, nonatomic) NSMutableArray *blockList;       // peer IDs
 @property (strong, nonatomic) NSMutableArray *conversationPreviews;
+@property (strong, nonatomic) NSMutableArray *blockedConversations;
 @property (strong, nonatomic) NSMutableDictionary *transcripts;
 @property (strong, nonatomic) User *user;               // the user's info
 
@@ -47,6 +48,7 @@
 - (void) sendMessage:(JSQMessage *)message toPeer:(MCPeerID *)peer;
 
 - (void) blockUser:(MCPeerID *)user;
+- (void) unblockUser:(MCPeerID *)user;
 
 - (void) saveUser;
 
