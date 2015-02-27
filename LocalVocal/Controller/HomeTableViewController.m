@@ -112,9 +112,10 @@ static NSString * const reuseIdentifier = @"conversationCell";
     } else {
         // if it's blocked, display generic avatar and text, and rename to "Blocked user xx"
         cell.usernameLabel.text = [NSString stringWithFormat:@"Blocked User %ld", (long)indexPath.row];
-        cell.avatarImage.image = [UIImage imageNamed:@"avatar"];
+        cell.avatarImage.image = [UIImage imageNamed:@"Avatar"];
         cell.redactedTextImage.hidden = NO;
         cell.previewLabel.hidden = YES;
+        cell.usernameLabel.textColor = [UIColor colorWithRed:0.200 green:0.200 blue:0.200 alpha:1];
     }
     
     [cell setRightUtilityButtons:[self rightButtons] WithButtonWidth:120];
