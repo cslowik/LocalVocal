@@ -42,6 +42,9 @@
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = backButtonItem;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:tap];
+    
     // set text field delegate
     [self.nameField setDelegate:self];
     
@@ -124,6 +127,10 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void) dismissKeyboard {
+    [self.nameField resignFirstResponder];
 }
 
 #pragma mark - Camera Functions
