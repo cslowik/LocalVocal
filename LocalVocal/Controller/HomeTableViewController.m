@@ -107,6 +107,11 @@ static NSString * const reuseIdentifier = @"conversationCell";
         cell.previewLabel.text = conversationPreview[@"message"];
         cell.redactedTextImage.hidden = YES;
         cell.previewLabel.hidden = NO;
+        if ([DataSource sharedInstance].connectedPeers[((MCPeerID *)conversationPreview[@"peer"]).displayName]) {
+            cell.onlineIndicator.hidden = NO;
+        } else {
+            cell.onlineIndicator.hidden = YES;
+        }
         
         if ([conversationPreview[@"unread"]  isEqual: @YES]) {
             cell.usernameLabel.textColor = [UIColor colorWithRed:0.173 green:0.322 blue:0.886 alpha:1];
@@ -114,12 +119,14 @@ static NSString * const reuseIdentifier = @"conversationCell";
             cell.usernameLabel.textColor = [UIColor colorWithRed:0.200 green:0.200 blue:0.200 alpha:1];
         }
         
+        
     } else {
         // if it's blocked, display generic avatar and text, and rename to "Blocked user xx"
         cell.usernameLabel.text = [NSString stringWithFormat:@"Blocked User %ld", (long)indexPath.row];
         cell.avatarImage.image = [UIImage imageNamed:@"Avatar"];
         cell.redactedTextImage.hidden = NO;
         cell.previewLabel.hidden = YES;
+        cell.onlineIndicator.hidden = YES;
         cell.usernameLabel.textColor = [UIColor colorWithRed:0.200 green:0.200 blue:0.200 alpha:1];
     }
     

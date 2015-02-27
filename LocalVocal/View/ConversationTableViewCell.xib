@@ -73,6 +73,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatarImage" destination="S9h-1s-PDK" id="tw1-Fx-4Jw"/>
+                <outlet property="onlineIndicator" destination="tRz-Pk-Ovk" id="4xW-Cz-GPI"/>
                 <outlet property="previewLabel" destination="Hh4-1q-lim" id="fr0-lM-1ds"/>
                 <outlet property="redactedTextImage" destination="wRw-uY-uGm" id="PEW-af-8cW"/>
                 <outlet property="usernameLabel" destination="evx-iy-r15" id="PHx-gb-IGB"/>

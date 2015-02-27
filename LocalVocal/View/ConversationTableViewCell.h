@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *previewLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *redactedTextImage;
+@property (weak, nonatomic) IBOutlet UIImageView *onlineIndicator;
 
 @end
