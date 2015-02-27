@@ -152,63 +152,66 @@
 #pragma mark - MCSessionDelegate
 
 - (void) session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
-    // decode the data
-    NSObject *decodedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
-    // if the data is a user
-    if ([decodedData isKindOfClass:[User class]]) {
-        User *user = (User *)decodedData;
+    if (![self.blockList containsObject:peerID]) {
+        // decode the data
+        NSObject *decodedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         
-        [self.connectedPeers[peerID.displayName] setObject:user forKey:@"user"];
-        self.connectedPeer = user;
-        
-        [self.nearbyPeers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id nP, NSUInteger idx, BOOL *stop) {
-            MCPeerID *peer = nP;
+        // if the data is a user
+        if ([decodedData isKindOfClass:[User class]]) {
+            User *user = (User *)decodedData;
             
-            if ([peer.displayName isEqual:peerID.displayName]) {
-                [self.nearbyPeers removeObjectAtIndex:idx];
-            }
-        }];
-        [self.nearbyPeers addObject:peerID];
-
-        // notify
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"peerOnline" object:nil];
-    }
-    
-    // if the data is a jsqmessage
-    if ([decodedData isKindOfClass:[JSQMessage class]]) {
-        // create JSQMessage
-        JSQMessage *incomingMessage = (JSQMessage *)decodedData;
-        
-        // add the message to the transcript and save it
-        if (self.transcripts[peerID.displayName] == nil) {
-            [self.transcripts setObject:[@[incomingMessage] mutableCopy] forKey:peerID.displayName];
-        } else {
-            [self.transcripts[peerID.displayName] addObject:incomingMessage];
+            [self.connectedPeers[peerID.displayName] setObject:user forKey:@"user"];
+            self.connectedPeer = user;
+            
+            [self.nearbyPeers enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id nP, NSUInteger idx, BOOL *stop) {
+                MCPeerID *peer = nP;
+                
+                if ([peer.displayName isEqual:peerID.displayName]) {
+                    [self.nearbyPeers removeObjectAtIndex:idx];
+                }
+            }];
+            [self.nearbyPeers addObject:peerID];
+            
+            // notify
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"peerOnline" object:nil];
         }
-        [self saveTranscripts];
         
-        // generate the conversation preview
-        NSDictionary *conversationPreview = [self generateConversationPreviewFromMessage:incomingMessage withPeer:peerID];
-        
-        // remove the previous conversation preview, if any.
-        [self.conversationPreviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id cnv, NSUInteger idx, BOOL *stop) {
-            NSMutableDictionary *conversation = (NSMutableDictionary *)cnv;
-            MCPeerID *peer = conversation[@"peer"];
-            if ([peer.displayName isEqual:peerID.displayName]) {
-                [self.conversationPreviews removeObjectAtIndex:idx];
+        // if the data is a jsqmessage
+        if ([decodedData isKindOfClass:[JSQMessage class]]) {
+            // create JSQMessage
+            JSQMessage *incomingMessage = (JSQMessage *)decodedData;
+            
+            // add the message to the transcript and save it
+            if (self.transcripts[peerID.displayName] == nil) {
+                [self.transcripts setObject:[@[incomingMessage] mutableCopy] forKey:peerID.displayName];
+            } else {
+                [self.transcripts[peerID.displayName] addObject:incomingMessage];
             }
-        }];
-        
-        // add the conversation preview to the lists
-        [self.conversationPreviews insertObject:conversationPreview atIndex:0];
-        [self saveConversationList];
-        
-        // post a notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:nil];
-        
-        // handleNotificationsForMessage:
-    }   
+            [self saveTranscripts];
+            
+            // generate the conversation preview
+            NSDictionary *conversationPreview = [self generateConversationPreviewFromMessage:incomingMessage withPeer:peerID];
+            
+            // remove the previous conversation preview, if any.
+            [self.conversationPreviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id cnv, NSUInteger idx, BOOL *stop) {
+                NSMutableDictionary *conversation = (NSMutableDictionary *)cnv;
+                MCPeerID *peer = conversation[@"peer"];
+                if ([peer.displayName isEqual:peerID.displayName]) {
+                    [self.conversationPreviews removeObjectAtIndex:idx];
+                }
+            }];
+            
+            // add the conversation preview to the lists
+            [self.conversationPreviews insertObject:conversationPreview atIndex:0];
+            [self saveConversationList];
+            
+            // post a notification
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:nil];
+            
+            // handleNotificationsForMessage:
+        }
+
+    }
 }
 
 - (void) session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
