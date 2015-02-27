@@ -172,6 +172,15 @@
             }];
             [self.nearbyPeers addObject:peerID];
             
+            [self.conversationPreviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                NSMutableDictionary *conversationPreview = obj;
+                MCPeerID *peer = conversationPreview[@"peer"];
+                if ([peer.displayName isEqual:peerID.displayName]) {
+                    conversationPreview[@"username"] = user.username;
+                    conversationPreview[@"avatar"] = user.avatar;
+                }
+            }];
+            
             // notify
             [[NSNotificationCenter defaultCenter] postNotificationName:@"peerOnline" object:nil];
         }

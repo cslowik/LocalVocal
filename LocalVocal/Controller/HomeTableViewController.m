@@ -262,6 +262,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
     UIAlertController *userAlert = [UIAlertController alertControllerWithTitle:@"New User Found" message:message preferredStyle:UIAlertControllerStyleAlert];
     [userAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:userAlert animated:YES completion:nil];
+    [self reloadUserTable];
 }
 
 - (void) messageReceived {
