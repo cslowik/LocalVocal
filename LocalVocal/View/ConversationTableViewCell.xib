@@ -21,20 +21,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="largeAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="S9h-1s-PDK">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="largeAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="S9h-1s-PDK">
                         <rect key="frame" x="14" y="11" width="61" height="61"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="S9h-1s-PDK" secondAttribute="height" multiplier="1:1" id="0jd-0p-ipe"/>
                         </constraints>
                     </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh4-1q-lim">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh4-1q-lim">
                         <rect key="frame" x="88" y="27" width="516" height="49"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <string key="text">This sounded nonsense to Alice, so she said nothing, but set off at once toward... This sounded nonsense to Alice, so she said nothing, but set off at once toward...</string>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evx-iy-r15">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evx-iy-r15">
                         <rect key="frame" x="92" y="13" width="516" height="24"/>
                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                         <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                     <constraint firstItem="S9h-1s-PDK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="VZD-vk-nGZ"/>
                     <constraint firstItem="evx-iy-r15" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="bvd-06-SCD"/>
                     <constraint firstItem="evx-iy-r15" firstAttribute="leading" secondItem="S9h-1s-PDK" secondAttribute="trailing" constant="17" id="c75-xd-oVe"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="S9h-1s-PDK" secondAttribute="bottom" id="cjL-WR-IeL"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="S9h-1s-PDK" secondAttribute="bottom" constant="-1" id="cjL-WR-IeL"/>
                     <constraint firstItem="Hh4-1q-lim" firstAttribute="top" secondItem="evx-iy-r15" secondAttribute="bottom" constant="-10" id="t9w-Bu-SyG"/>
                 </constraints>
                 <variation key="default">
