@@ -13,6 +13,9 @@
 #define kUser @"savedUser"                      // user file name
 #define kConversations @"conversations"         // conversation list file name
 #define kTranscripts @"transcripts"             // full chat transcripts
+#define kBlockedUsers @"blockedUsers"           // blocked user list
+#define kBlockedConversations @"blockedConversations"
+
 #define kServiceType @"lv-messenger"            // service type string
 
 @interface DataSource () <MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate>
@@ -45,7 +48,9 @@
         
         // read conversations and previews from saved data
         self.conversationPreviews = [NSMutableArray new];
+        self.blockedConversations = [NSMutableArray new];
         [self loadConversationList];
+        [self loadBlockedConversationList];
         
         self.transcripts = [@{} mutableCopy];
         [self loadTranscripts];
@@ -372,6 +377,18 @@
     });
 }
 
+- (void) loadBlockedConversationList {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *fullPath = [self pathForFilename:kBlockedConversations];
+        NSArray *blockedConversations = [NSKeyedUnarchiver unarchiveObjectWithFile:fullPath];
+        
+        if (blockedConversations != nil) {
+            self.conversationPreviews = [blockedConversations mutableCopy];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"loadedConversations" object:nil];
+        }
+    });
+}
+
 - (void) loadTranscripts {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^ {
         NSString *fullPath = [self pathForFilename:kTranscripts];
@@ -418,6 +435,22 @@
     });
 }
 
+- (void) saveBlockedConversationList {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *fullPath = [self pathForFilename:kBlockedConversations];
+        NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:self.blockedConversations];
+        
+        NSError *dataError;
+        BOOL wroteSuccessfully = [dataToSave writeToFile:fullPath options:NSDataWritingAtomic | NSDataWritingFileProtectionCompleteUnlessOpen error:&dataError];
+        
+        if (!wroteSuccessfully) {
+            //TODO: Add error reporting through Hockey here?
+            NSLog(@"Error writing file: %@", dataError);
+        }
+    });
+
+}
+
 - (void) saveTranscripts {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *fullPath = [self pathForFilename:kTranscripts];
@@ -431,6 +464,20 @@
             NSLog(@"Error writing file: %@", dataError);
         }
     });
+}
+
+#pragma mark - NSUserDefaults
+
+- (void) saveBlockList {
+    NSData *blockListToSave = [NSKeyedArchiver archivedDataWithRootObject:self.blockList];
+    [[NSUserDefaults standardUserDefaults] setObject:blockListToSave forKey:kBlockedUsers];
+}
+
+- (void) loadBlockList {
+    NSData *savedBlockList = [[NSUserDefaults standardUserDefaults] objectForKey:kBlockedUsers];
+    if (savedBlockList) {
+        self.blockList = [NSKeyedUnarchiver unarchiveObjectWithData:savedBlockList];
+    }
 }
 
 #pragma mark - Conversation Misc 
