@@ -8,6 +8,7 @@
 
 #import "JSQMessages.h"
 #import "DataSource.h"
+#import "HomeTableViewController.h"
 
 
 @interface ChatViewController : JSQMessagesViewController

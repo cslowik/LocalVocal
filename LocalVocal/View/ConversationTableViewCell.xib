@@ -42,6 +42,12 @@
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="redactedText" translatesAutoresizingMaskIntoConstraints="NO" id="wRw-uY-uGm">
                         <rect key="frame" x="92" y="37" width="440" height="32"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="indicator" translatesAutoresizingMaskIntoConstraints="NO" id="tRz-Pk-Ovk">
+                        <rect key="frame" x="39" y="67" width="11" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="tRz-Pk-Ovk" secondAttribute="height" multiplier="1:1" id="5Pv-wu-BH1"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="wRw-uY-uGm" secondAttribute="trailing" constant="100" id="55F-h3-Hka"/>
@@ -55,6 +61,8 @@
                     <constraint firstItem="evx-iy-r15" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="bvd-06-SCD"/>
                     <constraint firstItem="evx-iy-r15" firstAttribute="leading" secondItem="S9h-1s-PDK" secondAttribute="trailing" constant="17" id="c75-xd-oVe"/>
                     <constraint firstAttribute="bottomMargin" secondItem="S9h-1s-PDK" secondAttribute="bottom" constant="-1" id="cjL-WR-IeL"/>
+                    <constraint firstItem="tRz-Pk-Ovk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="31" id="eFv-Nx-C08"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="tRz-Pk-Ovk" secondAttribute="bottom" constant="-7" id="hSM-4N-EUK"/>
                     <constraint firstItem="Hh4-1q-lim" firstAttribute="top" secondItem="evx-iy-r15" secondAttribute="bottom" constant="-10" id="t9w-Bu-SyG"/>
                 </constraints>
                 <variation key="default">
@@ -73,6 +81,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="indicator" width="11" height="11"/>
         <image name="largeAvatar" width="125" height="125"/>
         <image name="redactedText" width="234" height="21"/>
     </resources>

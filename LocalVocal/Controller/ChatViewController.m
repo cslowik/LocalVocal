@@ -24,6 +24,15 @@
     // initialize the user infos for quick access
     self.peerID = [DataSource sharedInstance].peerID;
     
+    // mark conversation as read
+    [[DataSource sharedInstance].conversationPreviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSMutableDictionary *conversationPreview = (NSMutableDictionary *)obj;
+        MCPeerID *thisPeer = conversationPreview[@"peer"];
+        if ([thisPeer.displayName isEqual:self.otherPeerID.displayName]) {
+            [DataSource sharedInstance].conversationPreviews[idx][@"unread"] = @NO;
+        }
+    }];
+    
     // set up the chat bubble stuff JSQ needs
     JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
     self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor colorWithRed:0.090 green:0.329 blue:0.941 alpha:1]];
@@ -370,5 +379,6 @@
     // TODO: completion handler for if user is blocked - conversation should close and the appropriate visual changes have to happen on the home screen.
     // probably need to update datasource block user method..
 }
+
 
 @end

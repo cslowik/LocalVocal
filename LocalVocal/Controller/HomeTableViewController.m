@@ -61,6 +61,11 @@ static NSString * const reuseIdentifier = @"conversationCell";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -187,7 +192,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
                 // TODO: move all this code to the datasource. alhgvalsdifheiwhfgiwhg
                 MCPeerID *peerID = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row][@"peer"];
                 conversationToMove = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row];
-                conversationToMove[@"unread"] = @YES;
+                //conversationToMove[@"unread"] = @YES;
                 [[DataSource sharedInstance].conversationPreviews removeObjectAtIndex:cellIndexPath.row];
                 if ([DataSource sharedInstance].blockedConversations == nil) {
                     [DataSource sharedInstance].blockedConversations = [@[conversationToMove] mutableCopy];
