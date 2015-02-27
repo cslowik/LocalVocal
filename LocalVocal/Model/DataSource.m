@@ -44,7 +44,7 @@
         self.nearbyPeers = [[NSMutableArray alloc] initWithCapacity:1];
         // check for saved user info and block list
         [self loadUser];
-        //LOL CANT DO THIS self.blockList = [[NSUserDefaults standardUserDefaults] objectForKey:@"blockedPeers"];
+        [self loadBlockList];
         
         // read conversations and previews from saved data
         self.conversationPreviews = [NSMutableArray new];
@@ -100,7 +100,9 @@
     } else {
         [self.blockList insertObject:user atIndex:0];
     }
-    //LOL CANT DO THIS [[NSUserDefaults standardUserDefaults] setObject:self.blockList forKey:@"blockedPeers"];
+    [self saveBlockList];
+    [self saveBlockedConversationList];
+    [self saveConversationList];
 }
 
 - (void) unblockUser:(MCPeerID *)user {
@@ -110,6 +112,10 @@
             [self.blockList removeObject:obj];
         }
     }];
+    
+    [self saveBlockList];
+    [self saveBlockedConversationList];
+    [self saveConversationList];
 }
 
 #pragma mark - MC setup
@@ -383,7 +389,7 @@
         NSArray *blockedConversations = [NSKeyedUnarchiver unarchiveObjectWithFile:fullPath];
         
         if (blockedConversations != nil) {
-            self.conversationPreviews = [blockedConversations mutableCopy];
+            self.blockedConversations = [blockedConversations mutableCopy];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"loadedConversations" object:nil];
         }
     });
@@ -487,9 +493,8 @@
     // create parts for the conversation preview dictionary
     
     // truncate message text for preview
-    NSString *messagePreview = message.text;    // TODO: check for nil - if so, its a media message - say something like (1 photo..)
-    if(messagePreview.length > 50)
-    {
+    NSString *messagePreview = message.text;
+    if(messagePreview.length > 50) {
         messagePreview = [NSString stringWithFormat:@"%@...",[messagePreview substringToIndex:100]];
     } else if (!messagePreview) {
         messagePreview = @"Photo Message";

@@ -184,8 +184,8 @@ static NSString * const reuseIdentifier = @"conversationCell";
             
             if (cellIndexPath.section == 0) {
                 // if it's not blocked, block it.
+                // TODO: move all this code to the datasource. alhgvalsdifheiwhfgiwhg
                 MCPeerID *peerID = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row][@"peer"];
-                [[DataSource sharedInstance] blockUser:peerID];
                 conversationToMove = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row];
                 conversationToMove[@"unread"] = @YES;
                 [[DataSource sharedInstance].conversationPreviews removeObjectAtIndex:cellIndexPath.row];
@@ -194,13 +194,15 @@ static NSString * const reuseIdentifier = @"conversationCell";
                 } else {
                     [[DataSource sharedInstance].blockedConversations insertObject:conversationToMove atIndex:0];
                 }
+                [[DataSource sharedInstance] blockUser:peerID];
             } else {
                 // if it's blocked, unblock it.
+                // this too.. why here?????
                 MCPeerID *peerID = [DataSource sharedInstance].blockedConversations[cellIndexPath.row][@"peer"];
-                [[DataSource sharedInstance] unblockUser:peerID];
                 conversationToMove = [DataSource sharedInstance].blockedConversations[cellIndexPath.row];
                 [[DataSource sharedInstance].blockedConversations removeObjectAtIndex:cellIndexPath.row];
                 [[DataSource sharedInstance].conversationPreviews addObject:conversationToMove];
+                [[DataSource sharedInstance] unblockUser:peerID];
             }
             
             [self reloadUserTable];
