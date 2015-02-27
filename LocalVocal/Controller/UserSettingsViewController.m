@@ -11,6 +11,8 @@
 
 @interface UserSettingsViewController () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *avatarButton;
@@ -65,6 +67,14 @@
     } else {
         self.nameField.text = self.user.username;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -131,6 +141,23 @@
 
 - (void) dismissKeyboard {
     [self.nameField resignFirstResponder];
+}
+
+- (void) keyboardWasShown:(NSNotification *)notification {
+    NSDictionary* info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGRect bkgndRect = self.nameField.superview.frame;
+    bkgndRect.size.height += kbSize.height;
+    [self.nameField.superview setFrame:bkgndRect];
+    [self.scrollView setContentOffset:CGPointMake(0.0, self.nameField.frame.origin.y-kbSize.height) animated:YES];
+}
+
+- (void) keyboardWillBeHidden:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGRect bkgndRect = self.nameField.superview.frame;
+    bkgndRect.size.height -= kbSize.height;
+    [self.nameField.superview setFrame:bkgndRect];
 }
 
 #pragma mark - Camera Functions
