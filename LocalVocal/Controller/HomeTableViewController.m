@@ -112,7 +112,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
     } else {
         // if it's blocked, display generic avatar and text, and rename to "Blocked user xx"
         cell.usernameLabel.text = [NSString stringWithFormat:@"Blocked User %ld", (long)indexPath.row];
-        //cell.avatarImage.image = [UIImage imageNamed:@"avatar"];
+        cell.avatarImage.image = [UIImage imageNamed:@"avatar"];
         cell.redactedTextImage.hidden = NO;
         cell.previewLabel.hidden = YES;
     }
@@ -186,6 +186,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
                 MCPeerID *peerID = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row][@"peer"];
                 [[DataSource sharedInstance] blockUser:peerID];
                 conversationToMove = [DataSource sharedInstance].conversationPreviews[cellIndexPath.row];
+                conversationToMove[@"unread"] = @YES;
                 [[DataSource sharedInstance].conversationPreviews removeObjectAtIndex:cellIndexPath.row];
                 if ([DataSource sharedInstance].blockedConversations == nil) {
                     [DataSource sharedInstance].blockedConversations = [@[conversationToMove] mutableCopy];
