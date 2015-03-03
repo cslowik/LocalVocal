@@ -235,6 +235,7 @@
             [localNotification setAlertBody:[NSString stringWithFormat:@"New message from %@", conversationPreview[@"username"]]];
             [localNotification setAlertAction:@"Read It"];
             [localNotification setHasAction:YES];
+            [localNotification setSoundName:@"notification.mp3"];
             localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
             
