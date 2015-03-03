@@ -7,8 +7,10 @@
 //
 
 #import "JSQMessages.h"
+#import "JSQPhotoMediaItem.h"
 #import "DataSource.h"
 #import "HomeTableViewController.h"
+#import "Flurry.h"
 
 
 @interface ChatViewController : JSQMessagesViewController

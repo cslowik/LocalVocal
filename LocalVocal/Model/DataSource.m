@@ -145,7 +145,7 @@
     [self.nearbyPeers enumerateObjectsUsingBlock:^(id nP, NSUInteger idx, BOOL *stop) {
         MCPeerID *peer = nP;
         [self.connectedPeers[peer.displayName][@"session"] disconnect];
-        self.connectedPeers[peer.displayName][@"session"] = nil;
+        //self.connectedPeers[peer.displayName][@"session"] = nil;
     }];
 }
 
@@ -172,7 +172,9 @@
             }];
             [self.nearbyPeers addObject:peerID];
             
-            [self.conversationPreviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSMutableArray *tempPreviews = self.conversationPreviews;
+            
+            [tempPreviews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 NSMutableDictionary *conversationPreview = obj;
                 MCPeerID *peer = conversationPreview[@"peer"];
                 if ([peer.displayName isEqual:peerID.displayName]) {
@@ -180,9 +182,19 @@
                     conversationPreview[@"avatar"] = user.avatar;
                 }
             }];
+            self.conversationPreviews = tempPreviews;
             
             // notify
             [[NSNotificationCenter defaultCenter] postNotificationName:@"peerOnline" object:nil];
+            
+            // make a local notification
+            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+            [localNotification setFireDate:[NSDate date]];
+            [localNotification setAlertBody:[NSString stringWithFormat:@"New user %@ online", user.username]];
+            [localNotification setAlertAction:@"Chat Now"];
+            [localNotification setHasAction:YES];
+            localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
         
         // if the data is a jsqmessage
@@ -217,7 +229,17 @@
             // post a notification
             [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:nil];
             
+            // make a local notification
+            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+            [localNotification setFireDate:[NSDate date]];
+            [localNotification setAlertBody:[NSString stringWithFormat:@"New message from %@", conversationPreview[@"username"]]];
+            [localNotification setAlertAction:@"Read It"];
+            [localNotification setHasAction:YES];
+            localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+            
             // handleNotificationsForMessage:
+            
         }
 
     }

@@ -162,6 +162,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
     chatVC.otherPeerID = [DataSource sharedInstance].conversationPreviews[indexPath.row][@"peer"];
     chatVC.username = [DataSource sharedInstance].conversationPreviews[indexPath.row][@"username"];
     [self.navigationController pushViewController:chatVC animated:YES];
+    [Flurry logEvent:@"Tapped_Conversation"];
 }
 
 #pragma mark - SWTableViewCell Delegate
@@ -179,6 +180,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
             [[DataSource sharedInstance].transcripts removeObjectForKey:peerID.displayName];
             [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
                                   withRowAnimation:UITableViewRowAnimationAutomatic];
+            [Flurry logEvent:@"Deleted_Conversation"];
             break;
         }
         default:
@@ -207,6 +209,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
                     [[DataSource sharedInstance].blockedConversations insertObject:conversationToMove atIndex:0];
                 }
                 [[DataSource sharedInstance] blockUser:peerID];
+                [Flurry logEvent:@"Blocked_User"];
             } else {
                 // if it's blocked, unblock it.
                 // this too.. why here?????
@@ -215,6 +218,7 @@ static NSString * const reuseIdentifier = @"conversationCell";
                 [[DataSource sharedInstance].blockedConversations removeObjectAtIndex:cellIndexPath.row];
                 [[DataSource sharedInstance].conversationPreviews addObject:conversationToMove];
                 [[DataSource sharedInstance] unblockUser:peerID];
+                [Flurry logEvent:@"Unblocked_User"];
             }
             
             [self reloadUserTable];

@@ -12,6 +12,7 @@
 #import "ConversationTableViewCell.h"
 #import "ChatViewController.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "Flurry.h"
 
 @interface HomeTableViewController : UITableViewController
 

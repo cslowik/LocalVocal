@@ -45,6 +45,7 @@
 		83B159701A82D64E00E2F744 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B1596F1A82D64E00E2F744 /* AudioToolbox.framework */; };
 		83B97BD61A68E5C4001AB692 /* HomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B97BD51A68E5C4001AB692 /* HomeTableViewController.m */; };
 		83B97BE61A68EF6D001AB692 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B97BE51A68EF6D001AB692 /* User.m */; };
+		83CB755E1AA434BE0079349C /* FullScreenMediaView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83CB755D1AA434BE0079349C /* FullScreenMediaView.xib */; };
 		83D4B3D31A76F73200A6478B /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D4B3D21A76F73200A6478B /* DataSource.m */; };
 		A760CEE92AC0A84F86693CB4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 693901362475524966E73C5B /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -120,6 +121,7 @@
 		83B97BE41A68EF6D001AB692 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Model/User.h; sourceTree = "<group>"; };
 		83B97BE51A68EF6D001AB692 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Model/User.m; sourceTree = "<group>"; };
 		83BE73B21A9E360900092052 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config.h; path = "../../LocalVocal Config/config.h"; sourceTree = "<group>"; };
+		83CB755D1AA434BE0079349C /* FullScreenMediaView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FullScreenMediaView.xib; path = View/FullScreenMediaView.xib; sourceTree = "<group>"; };
 		83D4B3D11A76F73200A6478B /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataSource.h; path = Model/DataSource.h; sourceTree = "<group>"; };
 		83D4B3D21A76F73200A6478B /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataSource.m; path = Model/DataSource.m; sourceTree = "<group>"; };
 		F65CC040992D15AEB237600B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				835201C91A93307C005939E7 /* ConversationTableViewCell.h */,
 				835201CA1A93307C005939E7 /* ConversationTableViewCell.m */,
 				835201CB1A93307C005939E7 /* ConversationTableViewCell.xib */,
+				83CB755D1AA434BE0079349C /* FullScreenMediaView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				838369211A8B1BFE007396BC /* UserTableViewCell.xib in Resources */,
 				834A2ADB1A7F1ED8009C2EEA /* OpenSans-Regular.ttf in Resources */,
 				835360B71A6794C10027FB57 /* Main.storyboard in Resources */,
+				83CB755E1AA434BE0079349C /* FullScreenMediaView.xib in Resources */,
 				83B1596A1A82D32B00E2F744 /* notification.mp3 in Resources */,
 				835360BC1A6794C10027FB57 /* LaunchScreen.xib in Resources */,
 				83B1596E1A82D32B00E2F744 /* pop4.mp3 in Resources */,

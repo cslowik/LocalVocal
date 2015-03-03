@@ -93,11 +93,14 @@
         [[DataSource sharedInstance].advertiser startAdvertisingPeer];
         [[NSUserDefaults standardUserDefaults] setValue:@YES forKey:@"isVisible"];
     } else {
+        [[DataSource sharedInstance].advertiser stopAdvertisingPeer];
         [[NSUserDefaults standardUserDefaults] setValue:@NO forKey:@"isVisible"];
     }
     
     // notify
     [[NSNotificationCenter defaultCenter] postNotificationName:@"userInfoUpdated" object:nil];
+    
+    [Flurry logEvent:@"Updated_User"];
     
     // save settings
     [[DataSource sharedInstance] saveUser];
@@ -124,7 +127,6 @@
 
 -(void) popBack {
     [self.navigationController popViewControllerAnimated:YES];
-    //[[DataSource sharedInstance].browser startBrowsingForPeers];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -188,8 +190,6 @@
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    // the image picker controller finishes by masking the image to a circle. this should be an elegant way to handle it because it's
-    // the single entry point to the app for images (avatar images at least)
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
     UIImage *resizedImage = [self imageResize:chosenImage andResizeTo:CGSizeMake(125.0, 125.0)];
     self.avatarImage = resizedImage;

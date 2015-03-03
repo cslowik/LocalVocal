@@ -11,6 +11,7 @@
 #import "User.h"
 #import "DataSource.h"
 #import <HockeySDK/HockeySDK.h>
+#import "Flurry.h"
 
 @interface UserSettingsViewController : UIViewController
 

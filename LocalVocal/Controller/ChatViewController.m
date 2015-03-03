@@ -67,7 +67,7 @@
     [super viewDidAppear:animated];
     
     // enable springy bubbles
-    self.collectionView.collectionViewLayout.springinessEnabled = NO;
+    self.collectionView.collectionViewLayout.springinessEnabled = YES;
 }
 
 
@@ -94,6 +94,8 @@
     [[DataSource sharedInstance] sendMessage:message toPeer:self.otherPeerID];
     
     [self finishSendingMessageAnimated:YES];
+    
+    [Flurry logEvent:@"Sent_Message"];
 }
 
 - (void) didPressAccessoryButton:(UIButton *)sender {
@@ -311,7 +313,11 @@
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Tapped message bubble!");
+    JSQMessage *tappedMessage = [DataSource sharedInstance].transcripts[self.otherPeerID.displayName][indexPath.row];
+    if (tappedMessage.isMediaMessage == YES) {
+        //JSQPhotoMediaItem *photoMedia = (JSQPhotoMediaItem *)tappedMessage.media;
+    
+    }
 }
 
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapCellAtIndexPath:(NSIndexPath *)indexPath touchLocation:(CGPoint)touchLocation
@@ -356,7 +362,9 @@
     
     [self finishSendingMessageAnimated:YES];
     
-    [picker dismissViewControllerAnimated:YES completion:NULL];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [Flurry logEvent:@"Sent_Photo"];
+    }];
     
 }
 
