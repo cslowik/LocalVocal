@@ -236,6 +236,10 @@
             [localNotification setAlertAction:@"Read It"];
             [localNotification setHasAction:YES];
             [localNotification setSoundName:@"notification.mp3"];
+            NSString *type = (!incomingMessage.text) ? @"Photo" : @"Message";
+            NSDictionary *userInfo = @{@"peer" : peerID.displayName,
+                                       @"notificationType" : type};
+            [localNotification setUserInfo:userInfo];
             localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
             

@@ -11,6 +11,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import "Flurry.h"
 #import "../../LocalVocal Config/config.h"
+#import <MultipeerConnectivity/MultipeerConnectivity.h>
 
 @interface AppDelegate ()
 
@@ -36,10 +37,12 @@
     UILocalNotification *chatNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     
     // set badge number to zero
-    //application.applicationIconBadgeNumber = 0;
+    application.applicationIconBadgeNumber = 0;
     
     // handle the notification
     if (chatNotification) {
+        NSString *peer = chatNotification.userInfo[@"peer"];
+        NSLog(@"%@", peer);
         
     }
     
@@ -52,7 +55,6 @@
     UIApplicationState state = [application applicationState];
     if (state == UIApplicationStateActive) {
         // notification notification
-        NSLog(@"New message");
         
         // if the notification is a message
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"newMessage" object:self];

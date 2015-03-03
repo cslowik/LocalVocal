@@ -14,15 +14,10 @@
 
 #define kSaveFileName @"LVdata"
 
-/*!
- @class DataSource
- @abstract
- The data model for the majority of LocalVocal app
- 
- @discussion
- Notifications:
- peerOffline - indicates a peer defined by the passed object has gone offline
- */
+typedef NS_ENUM(NSInteger, LVNotifyType) {
+    Message       = 0,
+    Photo         = 1
+};
 
 @interface DataSource : NSObject
 
