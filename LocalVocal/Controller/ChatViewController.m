@@ -10,6 +10,8 @@
 
 @interface ChatViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
+@property (strong, nonatomic) UIImageView *fullScreenView;
+
 @end
 
 @implementation ChatViewController
@@ -315,8 +317,27 @@
 {
     JSQMessage *tappedMessage = [DataSource sharedInstance].transcripts[self.otherPeerID.displayName][indexPath.row];
     if (tappedMessage.isMediaMessage == YES) {
-        //JSQPhotoMediaItem *photoMedia = (JSQPhotoMediaItem *)tappedMessage.media;
-    
+        JSQPhotoMediaItem *photoMedia = (JSQPhotoMediaItem *)tappedMessage.media;
+        
+        self.fullScreenView = [UIImageView new];
+        [self.fullScreenView setContentMode: UIViewContentModeScaleAspectFit];
+        [self.fullScreenView setBackgroundColor: [[UIColor whiteColor] colorWithAlphaComponent:0.65]];
+        self.fullScreenView.image = photoMedia.image;
+        JSQMessagesCollectionViewCell *tappedCell = (JSQMessagesCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        CGRect startFrame = [self.view convertRect:tappedCell.mediaView.bounds fromView:collectionView];
+        [self.fullScreenView setFrame:startFrame];
+        
+        [self.view addSubview:self.fullScreenView];
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             [self.fullScreenView setFrame:CGRectMake(0,
+                                                           0,
+                                                           self.view.bounds.size.width,
+                                                           self.view.bounds.size.height)];
+                         }];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullScreenViewTapped:)];
+        [self.fullScreenView addGestureRecognizer:tapGesture];
+        [self.fullScreenView setUserInteractionEnabled:YES];
     }
 }
 
@@ -386,6 +407,22 @@
     [self presentViewController:alertVC animated:YES completion:nil];
     // TODO: completion handler for if user is blocked - conversation should close and the appropriate visual changes have to happen on the home screen.
     // probably need to update datasource block user method..
+}
+
+- (void)fullScreenViewTapped:(UIGestureRecognizer *)gestureRecognizer {
+    CGRect point = [self.view convertRect:self.fullScreenView.bounds fromView:self.fullScreenView];
+    
+    self.fullScreenView.backgroundColor=[UIColor clearColor];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         [(UIImageView *)gestureRecognizer.view setFrame:point];
+                     }];
+    [self performSelector:@selector(animationDone:) withObject:[gestureRecognizer view] afterDelay:0.4];
+}
+
+-(void)animationDone:(UIView *)view {
+    [self.fullScreenView removeFromSuperview];
+    self.fullScreenView = nil;
 }
 
 

@@ -193,6 +193,12 @@
             [localNotification setAlertBody:[NSString stringWithFormat:@"New user %@ online", user.username]];
             [localNotification setAlertAction:@"Chat Now"];
             [localNotification setHasAction:YES];
+            
+            // set up actions
+            UIMutableUserNotificationAction *openChatAction = [UIMutableUserNotificationAction new];
+            [openChatAction setIdentifier:@"openChat"];
+            
+            
             localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
@@ -230,15 +236,16 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:nil];
             
             // make a local notification
+            NSString *type = (!incomingMessage.text) ? @"photo" : @"pessage";
+            NSDictionary *userInfo = @{@"peer" : peerID.displayName,
+                                       @"notificationType" : type};
+            
             UILocalNotification *localNotification = [[UILocalNotification alloc] init];
             [localNotification setFireDate:[NSDate date]];
-            [localNotification setAlertBody:[NSString stringWithFormat:@"New message from %@", conversationPreview[@"username"]]];
+            [localNotification setAlertBody:[NSString stringWithFormat:@"New %@ from %@", type, conversationPreview[@"username"]]];
             [localNotification setAlertAction:@"Read It"];
             [localNotification setHasAction:YES];
             [localNotification setSoundName:@"notification.mp3"];
-            NSString *type = (!incomingMessage.text) ? @"Photo" : @"Message";
-            NSDictionary *userInfo = @{@"peer" : peerID.displayName,
-                                       @"notificationType" : type};
             [localNotification setUserInfo:userInfo];
             localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
