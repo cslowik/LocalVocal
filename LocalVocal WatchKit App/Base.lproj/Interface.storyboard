@@ -39,7 +39,7 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label alignment="left" text="Alert Label" id="XkS-y5-khE">
+                        <label width="136" alignment="left" text="New Message!" textAlignment="center" id="XkS-y5-khE">
                             <fontDescription key="font" name="OpenSans-Semibold" family="Open Sans" pointSize="14"/>
                         </label>
                     </items>
