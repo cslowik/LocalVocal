@@ -236,7 +236,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"messageReceived" object:nil];
             
             // make a local notification
-            NSString *type = (!incomingMessage.text) ? @"photo" : @"pessage";
+            NSString *type = (!incomingMessage.text) ? @"photo" : @"message";
             NSDictionary *userInfo = @{@"peer" : peerID.displayName,
                                        @"notificationType" : type};
             
@@ -244,6 +244,7 @@
             [localNotification setFireDate:[NSDate date]];
             [localNotification setAlertBody:[NSString stringWithFormat:@"New %@ from %@", type, conversationPreview[@"username"]]];
             [localNotification setAlertAction:@"Read It"];
+            //[localNotification setAlertTitle:@"New Message!"];
             [localNotification setHasAction:YES];
             [localNotification setSoundName:@"notification.mp3"];
             [localNotification setUserInfo:userInfo];

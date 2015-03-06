@@ -13,7 +13,11 @@
         <!--Interface Controller-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController"/>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController">
+                    <items>
+                        <label alignment="left" text="Hello World!" id="VjM-Wt-3y1"/>
+                    </items>
+                </controller>
             </objects>
             <point key="canvasLocation" x="235" y="347"/>
         </scene>
