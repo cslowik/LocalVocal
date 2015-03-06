@@ -1,8 +1,8 @@
 {
     "aps": {
         "alert": {
-            "body": "Test message",
-            "title": "Optional title"
+            "body": "Hey dude wheres my car",
+            "title": "New Chat"
         },
         "category": "myCategory"
     },
