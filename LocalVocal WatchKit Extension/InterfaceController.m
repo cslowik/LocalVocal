@@ -32,6 +32,10 @@
     [super didDeactivate];
 }
 
+- (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)localNotification {
+    // do somethign with the local notification
+}
+
 @end
 
 

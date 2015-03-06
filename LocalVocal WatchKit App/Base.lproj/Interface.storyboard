@@ -39,7 +39,7 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label width="136" alignment="left" text="New Message!" textAlignment="center" id="XkS-y5-khE">
+                        <label width="136" height="44" alignment="left" text="New Message!" textAlignment="left" numberOfLines="2" id="XkS-y5-khE">
                             <fontDescription key="font" name="OpenSans-Semibold" family="Open Sans" pointSize="14"/>
                         </label>
                     </items>
@@ -50,14 +50,14 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="235" y="1001"/>
+            <point key="canvasLocation" x="520" y="672"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="KIl-fV-djm">
             <objects>
                 <controller id="gdX-wl-uQE" customClass="NotificationController"/>
             </objects>
-            <point key="canvasLocation" x="553" y="1001"/>
+            <point key="canvasLocation" x="838" y="672"/>
         </scene>
     </scenes>
 </document>
